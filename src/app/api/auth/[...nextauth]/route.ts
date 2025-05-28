@@ -1,7 +1,15 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession["user"]
+  }
+}
 
 const prisma = new PrismaClient();
 
